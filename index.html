@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paisaje de Aprendizaje: Aprender a Programar</title>
+    <style>
+        :root {
+            --primary-bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --turquesa: #1abc9c;
+            --amarillo: #f1c40f;
+            --morado: #9b59b6;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #34495e;
+            font-size: 2em;
+        }
+
+        header h2 {
+            margin: 5px 0;
+            color: #2980b9;
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+
+        header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        /* Nav Tab Grid */
+        .stage-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto 25px auto;
+        }
+
+        .stage-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 15px 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .stage-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .stage-btn.active {
+            border-color: #3498db;
+            background-color: #ebf5fb;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75em;
+            padding: 3px 8px;
+            border-radius: 12px;
+            color: white;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        
+        .badge.turquesa { background-color: var(--turquesa); }
+        .badge.amarillo { background-color: var(--amarillo); color: #333; }
+        .badge.morado { background-color: var(--morado); }
+
+        /* Content Display */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stage-content {
+            display: none;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            border-top: 6px solid #3498db;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .stage-content.active {
+            display: block;
+        }
+
+        .stage-header {
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stage-header h2 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        /* Estilos para las imágenes de cada etapa */
+        .stage-image-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .stage-img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            border-radius: 4px;
+        }
+
+        .info-card h4 {
+            margin: 0 0 8px 0;
+            color: #2980b9;
+            font-size: 1.05em;
+        }
+
+        .info-card p, .info-card ul {
+            margin: 0;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .info-card ul {
+            padding-left: 20px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PAISAJE DE APRENDIZAJE: APRENDER A PROGRAMAR</h1>
+        <h2>Mag. Andres Avendaño</h2>
+        <p>Contexto: Algoritmo de un Cajero Automático (Inteligencia Verbal-Lingüística)</p>
+    </header>
+
+    <div class="container">
+        <!-- Navegación por Etapas -->
+        <div class="stage-nav">
+            <div class="stage-btn active" onclick="showStage(1)" id="btn-1">
+                Etapa 1: Crear<br>
+                <span class="badge turquesa">Obligatoria</span>
+            </div>
+            <div class="stage-btn" onclick="showStage(2)" id="btn-2">
+                Etapa 2: Evaluar<br>
+                <span class="badge amarillo">Refuerzo</span>
+            </div>
+            <div class="stage-btn" onclick="showStage(3)" id="btn-3">
+                Etapa 3: Analizar<br>
+                <span class="badge turquesa">Obligatoria</span>
+            </div>
+            <div class="stage-btn" onclick="showStage(4)" id="btn-4">
+                Etapa 4: Aplicar<br>
+                <span class="badge amarillo">Refuerzo</span>
+            </div>
+            <div class="stage-btn" onclick="showStage(5)" id="btn-5">
+                Etapa 5: Comprender<br>
+                <span class="badge turquesa">Obligatoria</span>
+            </div>
+            <div class="stage-btn" onclick="showStage(6)" id="btn-6">
+                Etapa 6: Recordar<br>
+                <span class="badge morado">Optativa</span>
+            </div>
+        </div>
+
+        <!-- ETAPA 1 -->
+        <div class="stage-content active" id="stage-1">
+            <div class="stage-header">
+                <h2>ETAPA 1: CREAR</h2>
+                <h3>Algoritmo Narrativo y Pseudocódigo para un Cajero Automático</h3>
+                <p><strong>Inteligencia:</strong> Verbal-Lingüística | <strong>Bloom:</strong> Crear</p>
+            </div>
+            
+            <div class="stage-image-container">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80" alt="Creación de Pseudocódigo y Algoritmos" class="stage-img">
+            </div>
+
+            <div class="grid-info">
+                <div class="info-card">
+                    <h4>🎯 Objetivos de aprendizaje</h4>
+                    <p>Diseñar la secuencia lógica completa para el funcionamiento de un cajero automático utilizando pseudocódigo claro y estructurado. Explicar mediante redacción técnica el propósito de cada bloque funcional.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🧩 Reto: ¿Qué hay que resolver?</h4>
+                    <p>Redactar en pseudocódigo las instrucciones completas para que un cajero automático procese la validación de PIN, consulta de saldo, verificación de fondos durante un retiro y la emisión de un comprobante.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📦 Resultado / Producto Final</h4>
+                    <p>Documento técnico que combine la narrativa del viaje del usuario (User Journey) con el algoritmo completo escrito en pseudocódigo debidamente comentado.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🛠️ Materiales y Documentación</h4>
+                    <p>Guía de sintaxis de pseudocódigo (ej. PSeInt), especificaciones de requerimientos bancarios y editor de texto.</p>
+                </div>
+                <div class="info-card">
+                    <h4>⏱️ Tiempo de ejecución</h4>
+                    <p>90 minutos (2 horas pedagógicas).</p>
+                </div>
+                <div class="info-card">
+                    <h4>📊 Criterios de Evaluación</h4>
+                    <p>Coherencia en la narrativa del proceso, precisión sintáctica en las sentencias de pseudocódigo y manejo exhaustivo de casos de excepción (saldo insuficiente, PIN incorrecto).</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>📝 Rúbrica de Evaluación</h4>
+                    <p>Rúbrica analítica que evalúa: Estructura lógica (40%), Legibilidad y comentarios (30%), Cobertura de casos bordes (30%).</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>🔗 Relación con otras actividades</h4>
+                    <p>Se alimenta de las etapas de Aplicar y Comprender, y genera el material que será auditado en la etapa de Evaluar.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETAPA 2 -->
+        <div class="stage-content" id="stage-2">
+            <div class="stage-header">
+                <h2>ETAPA 2: EVALUAR</h2>
+                <h3>Depuración Crítica y Auditoría de Código Escrito</h3>
+                <p><strong>Inteligencia:</strong> Inteligencia Intrapersonal | <strong>Bloom:</strong> Evaluar</p>
+            </div>
+
+            <div class="stage-image-container">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Depuración y Auditoría de Código" class="stage-img">
+            </div>
+
+            <div class="grid-info">
+                <div class="info-card">
+                    <h4>🎯 Objetivos de aprendizaje</h4>
+                    <p>Auditar un pseudocódigo preexistente identificando fallas sintácticas, semánticas y de lógica. Redactar un informe técnico argumentando los errores encontrados y justificando las correcciones.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🧩 Reto: ¿Qué hay que resolver?</h4>
+                    <p>Analizar un script de cajero automático que contiene errores intencionados (ej. bucles infinitos, variables no inicializadas o condiciones ambiguas) y elaborar un diagnóstico crítico por escrito.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📦 Resultado / Producto Final</h4>
+                    <p>Informe técnico de depuración (Bug Report) con un cuadro comparativo: "Error detectado", "Justificación del fallo" y "Propuesta de corrección".</p>
+                </div>
+                <div class="info-card">
+                    <h4>🛠️ Materiales y Documentación</h4>
+                    <p>Script impreso con errores de sintaxis y lógica, guía de buenas prácticas de programación.</p>
+                </div>
+                <div class="info-card">
+                    <h4>⏱️ Tiempo de ejecución</h4>
+                    <p>60 minutos.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📊 Criterios de Evaluación</h4>
+                    <p>Capacidad de argumentación técnica, precisión en la identificación de inconsistencias lógicas y claridad en la redacción del reporte.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>📝 Rúbrica de Evaluación</h4>
+                    <p>Escala de estimación de desempeño enfocada en análisis crítico, vocabulario técnico informático y calidad argumentativa.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>🔗 Relación con otras actividades</h4>
+                    <p>Revisa los productos generados en la etapa de Crear y sienta las bases para el análisis de eficiencia en Analizar.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETAPA 3 -->
+        <div class="stage-content" id="stage-3">
+            <div class="stage-header">
+                <h2>ETAPA 3: ANALIZAR</h2>
+                <h3>Ensayo Comparativo de Algoritmos y Complejidad Lógica</h3>
+                <p><strong>Inteligencia:</strong> Verbal-Lingüística | <strong>Bloom:</strong> Analizar</p>
+            </div>
+
+            <div class="stage-image-container">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Análisis Comparativo de Algoritmos" class="stage-img">
+            </div>
+
+            <div class="grid-info">
+                <div class="info-card">
+                    <h4>🎯 Objetivos de aprendizaje</h4>
+                    <p>Descomponer la estructura interna de dos enfoques algorítmicos distintos para una misma tarea. Redactar un texto comparativo argumentando sobre la legibilidad, mantenibilidad y complejidad.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🧩 Reto: ¿Qué hay que resolver?</h4>
+                    <p>Comparar dos códigos de cajero: uno estructurado mediante bloque monolítico y otro mediante funciones/módulos separados, determinando mediante un escrito cuál es superior y por qué.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📦 Resultado / Producto Final</h4>
+                    <p>Ensayo técnico o artículo expositivo de 2 páginas con introducción, desarrollo comparativo y conclusión fundamentada.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🛠️ Materiales y Documentación</h4>
+                    <p>Muestras de código funcional, guías sobre buenas prácticas de arquitectura de software y legibilidad.</p>
+                </div>
+                <div class="info-card">
+                    <h4>⏱️ Tiempo de ejecución</h4>
+                    <p>75 minutos.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📊 Criterios de Evaluación</h4>
+                    <p>Rigor en la descomposición de componentes, uso correcto de vocabulario especializado y solidez en las conclusiones.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>📝 Rúbrica de Evaluación</h4>
+                    <p>Rúbrica de ensayo expositivo-técnico (Estructura, Argumentación, Vocabulario especializado, Cohesión textual).</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>🔗 Relación con otras actividades</h4>
+                    <p>Conecta con la resolución de problemas lógico-matemáticos y fortalece los criterios necesarios para la etapa de Evaluar.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETAPA 4 -->
+        <div class="stage-content" id="stage-4">
+            <div class="stage-header">
+                <h2>ETAPA 4: APLICAR</h2>
+                <h3>Traducción de Historias de Usuario a Estructuras de Control</h3>
+                <p><strong>Inteligencia:</strong> Inteligencia Lógico-Matemática | <strong>Bloom:</strong> Aplicar</p>
+            </div>
+
+            <div class="stage-image-container">
+                <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=1200&q=80" alt="Traducción de Requerimientos a Código" class="stage-img">
+            </div>
+
+            <div class="grid-info">
+                <div class="info-card">
+                    <h4>🎯 Objetivos de aprendizaje</h4>
+                    <p>Traducir requerimientos narrativos redactados en lenguaje natural a condicionales y bucles en pseudocódigo. Aplicar estructuras de control a reglas de negocio.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🧩 Reto: ¿Qué hay que resolver?</h4>
+                    <p>Convertir historias de usuario escritas en texto (ej. "Si el usuario ingresa su clave erróneamente 3 veces, la tarjeta debe bloquearse") a la sintaxis estructurada Si... Entonces / Para... Hasta.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📦 Resultado / Producto Final</h4>
+                    <p>Ficha técnica de especificación que vincule cada párrafo narrativo con su fragmento de código ejecutable.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🛠️ Materiales y Documentación</h4>
+                    <p>Tarjetas con Historias de Usuario (User Stories), manual de sintaxis de estructuras de control.</p>
+                </div>
+                <div class="info-card">
+                    <h4>⏱️ Tiempo de ejecución</h4>
+                    <p>60 minutos.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📊 Criterios de Evaluación</h4>
+                    <p>Fidelidad en la traducción del lenguaje natural al lenguaje de programación y corrección en la sintaxis condicional/repetitiva.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>📝 Rúbrica de Evaluación</h4>
+                    <p>Lista de cotejo sobre cumplimiento de requisitos narrativos en el código fuente.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>🔗 Relación con otras actividades</h4>
+                    <p>Actúa como puente directo entre la comprensión teórica de Comprender y la elaboración compleja de Crear.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETAPA 5 -->
+        <div class="stage-content" id="stage-5">
+            <div class="stage-header">
+                <h2>ETAPA 5: COMPRENDER</h2>
+                <h3>Guía Explicativa de Tipos de Datos y Diagrama de Flujo</h3>
+                <p><strong>Inteligencia:</strong> Inteligencia Visual-Espacial | <strong>Bloom:</strong> Comprender</p>
+            </div>
+
+            <div class="stage-image-container">
+                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80" alt="Diagrama de Flujo y Tipos de Datos" class="stage-img">
+            </div>
+
+            <div class="grid-info">
+                <div class="info-card">
+                    <h4>🎯 Objetivos de aprendizaje</h4>
+                    <p>Explicar con palabras propias los conceptos esenciales de variables, tipos de datos y constantes. Describir la función de cada símbolo en un diagrama de flujo.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🧩 Reto: ¿Qué hay que resolver?</h4>
+                    <p>Redactar una guía para un principiante donde se explique qué tipo de dato requiere cada información del cajero (Monto = Real, PIN = Entero, Estado = Booleano) y por qué clasificarlos así.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📦 Resultado / Producto Final</h4>
+                    <p>Guía pedagógica ilustrada o glosario explicativo con definiciones conceptuales redactadas por el estudiante.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🛠️ Materiales y Documentación</h4>
+                    <p>Plantilla de documentación, lista de conceptos clave (variables, tipos de datos, operaciones lógicas).</p>
+                </div>
+                <div class="info-card">
+                    <h4>⏱️ Tiempo de ejecución</h4>
+                    <p>45 minutos.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📊 Criterios de Evaluación</h4>
+                    <p>Claridad explicativa, corrección en las definiciones conceptuales e idoneidad de las analogías utilizadas.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>📝 Rúbrica de Evaluación</h4>
+                    <p>Lista de cotejo de precisión conceptual y coherencia lingüística.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>🔗 Relación con otras actividades</h4>
+                    <p>Sirve de fundamento previo para las actividades prácticas de Aplicar y Crear.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETAPA 6 -->
+        <div class="stage-content" id="stage-6">
+            <div class="stage-header">
+                <h2>ETAPA 6: RECORDAR</h2>
+                <h3>Glosario Mnemotécnico y Rima de Palabras Clave (Keywords)</h3>
+                <p><strong>Inteligencia:</strong> Inteligencia Musical | <strong>Bloom:</strong> Recordar</p>
+            </div>
+
+            <div class="stage-image-container">
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=80" alt="Memorización y Mnemotecnia de Palabras Clave" class="stage-img">
+            </div>
+
+            <div class="grid-info">
+                <div class="info-card">
+                    <h4>🎯 Objetivos de aprendizaje</h4>
+                    <p>Memorizar las palabras reservadas y la sintaxis básica de pseudocódigo. Asociar términos técnicos con su función exacta mediante redacción mnemotécnica.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🧩 Reto: ¿Qué hay que resolver?</h4>
+                    <p>Crear un poema, acróstico o rima que organice las palabras clave (Inicio, Fin, Leer, Escribir, Si-Entonces, Mientras) facilitando su recuerdo durante la escritura de código.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📦 Resultado / Producto Final</h4>
+                    <p>Ficha mnemotécnica de bolsillo o composición lírica con la lista de palabras reservadas y sus definiciones.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🛠️ Materiales y Documentación</h4>
+                    <p>Lista oficial de Keywords del lenguaje, tarjetas de memorización (flashcards).</p>
+                </div>
+                <div class="info-card">
+                    <h4>⏱️ Tiempo de ejecución</h4>
+                    <p>30 minutos.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📊 Criterios de Evaluación</h4>
+                    <p>Inclusión precisa de las palabras clave requeridas, creatividad lingüística y exactitud en los significados.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>📝 Rúbrica de Evaluación</h4>
+                    <p>Prueba corta de retención de vocabulario y registro de observación de la técnica mnemotécnica.</p>
+                </div>
+                <div class="info-card full-width">
+                    <h4>🔗 Relación con otras actividades</h4>
+                    <p>Constituye el escalón base para todas las actividades lingüísticas superiores dentro de la matriz.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showStage(stageNumber) {
+            // Ocultar todos los contenidos
+            const contents = document.querySelectorAll('.stage-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Desmarcar todos los botones
+            const buttons = document.querySelectorAll('.stage-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Mostrar la etapa seleccionada
+            document.getElementById(`stage-${stageNumber}`).classList.add('active');
+            document.getElementById(`btn-${stageNumber}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
